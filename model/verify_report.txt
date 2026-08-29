@@ -1,0 +1,74 @@
+Supabase : https://vbvotrxudzqjgumetwbl.supabase.co
+Key      : from backend/.env (not shown)
+Weights  : {'amount': 28, 'device': 24, 'location': 24, 'hour': 19}  (all four = 95)
+Flag when: risk_score > 70
+Local    : 393 transactions, 18 partial anomalies
+
+Fetched  : 393 transactions (joined with user profile)
+
+=== Check 1: risk_score distribution (all 393 transactions) ===
+  score  count  status    rules that fire
+      0    372  normal    (none) x372
+     19      1  normal    hour
+     24      3  normal    device, location x2
+     28      2  normal    amount x2
+     43      2  normal    device+hour, location+hour
+     47      1  normal    amount+hour
+     48      1  normal    device+location
+     52      3  normal    amount+device, amount+location x2
+     67      1  normal    device+location+hour
+     71      2  flagged   amount+device+hour, amount+location+hour
+     76      2  flagged   amount+device+location x2
+     95      3  flagged   amount+device+location+hour x3
+           393  total
+
+  Policy bands (RiskPolicyPanel):
+      0-30  Allow                     378  ########################################
+     31-60  Additional verification     7  #######
+     61-85  Analyst review              5  #####
+     86-100 High-risk action            3  ###
+                                      393  (sum)
+
+  stored vs recomputed rule score : 393/393 match, 0 stale
+
+=== Check 2: expected_rules vs actual (18 partial-anomaly rows) ===
+  txn         user                  exp  act  expected                   actual                     ok
+  txn_00376   Julian Whitfield       28   28  amount                     amount                     OK
+  txn_00377   Julian Whitfield       24   24  device                     device                     OK
+  txn_00378   Tomas Iversen          24   24  location                   location                   OK
+  txn_00379   Chidi Okonkwo          19   19  hour                       hour                       OK
+  txn_00380   Noor Siddiqui          24   24  location                   location                   OK
+  txn_00381   Grace Nakamura         28   28  amount                     amount                     OK
+  txn_00382   Grace Nakamura         52   52  amount+device              amount+device              OK
+  txn_00383   Noor Siddiqui          52   52  amount+location            amount+location            OK
+  txn_00384   Chidi Okonkwo          47   47  amount+hour                amount+hour                OK
+  txn_00385   Fatima Al-Rashid       48   48  device+location            device+location            OK
+  txn_00386   Owen Castellanos       43   43  device+hour                device+hour                OK
+  txn_00387   Chidi Okonkwo          43   43  location+hour              location+hour              OK
+  txn_00388   Chidi Okonkwo          52   52  amount+location            amount+location            OK
+  txn_00389   Ava Brennan            76   76  amount+device+location     amount+device+location     OK
+  txn_00390   Ava Brennan            71   71  amount+device+hour         amount+device+hour         OK
+  txn_00391   Ava Brennan            71   71  amount+location+hour       amount+location+hour       OK
+  txn_00392   Noor Siddiqui          67   67  device+location+hour       device+location+hour       OK
+  txn_00393   Owen Castellanos       76   76  amount+device+location     amount+device+location     OK
+
+  matched rows : 18/18
+  rule mismatches : 0
+
+=== Check 3: status agrees with risk_score (all 393 transactions) ===
+  status flagged       7
+  status normal      386
+  risk_score >  70       7
+  risk_score <= 70     386
+
+  disagreements : 0
+
+=== Verdict ===
+  PASS  row count == 393
+  PASS  band sum == row count
+  PASS  stored == recomputed
+  PASS  all 18 partial rows found
+  PASS  expected_rules == actual
+  PASS  status agrees with risk_score
+
+All checks passed.

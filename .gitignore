@@ -1,0 +1,20 @@
+# Secrets - never commit. backend/.env will hold the Supabase service_role key,
+# which bypasses RLS entirely.
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node
+node_modules/
+dist/
+
+# Data & model artifacts. creditcard.csv is ~150 MB, above GitHub's 100 MB
+# per-file hard limit, so committing it would break the push.
+model/data/*.csv
+model/saved_model/*.pkl
