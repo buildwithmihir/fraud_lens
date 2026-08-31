@@ -1,0 +1,7 @@
+# FraudLens backend. Install with: python -m pip install -r requirements.txt
+# Run from backend/: uvicorn main:app --reload --port 8000
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+httpx==0.28.1
+python-dotenv==1.2.2
+pydantic==2.13.5

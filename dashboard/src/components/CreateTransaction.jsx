@@ -22,38 +22,50 @@ export default function CreateTransaction({ users = [] }) {
   const [result, setResult] = useState(null)
 
   const user = useMemo(() => users.find((u) => u.id === userId) ?? users[0], [users, userId])
-
   const handleSubmit = (e) => {
     e.preventDefault()
-    setResult(null)
-
-    if (!user) {
-      setError('No users loaded.')
-      return
-    }
     if (!amount || Number(amount) <= 0) {
       setError('Enter a valid amount.')
+      setResult(null)
       return
     }
     if (!location.trim()) {
       setError('Enter a location.')
+      setResult(null)
       return
     }
+    if (!user) {
+      setError('Select a user.')
+      setResult(null)
+      return
+    }
+
     setError('')
 
-    const amt = Number(amount)
-    const hr = Number(hour)
-    // The same four checks as model/score_transaction.py.
+    // Work out which of the four rules this hypothetical transaction trips,
+    // using the same logic the real scorer applies (model/score_transaction.py).
     const fired = new Set()
-    if (user.avgSpend > 0 && amt > 10 * user.avgSpend) fired.add('amount')
-    if (device === 'new') fired.add('device')
-    if (!user.typicalLocations.some((l) => l.toLowerCase() === location.trim().toLowerCase()))
+
+    if (Number(amount) > user.avgSpend * 10) {
+      fired.add('amount')
+    }
+    if (device === 'new') {
+      fired.add('device')
+    }
+    if (
+      location.trim() &&
+      !user.typicalLocations.some((loc) => loc.toLowerCase() === location.trim().toLowerCase())
+    ) {
       fired.add('location')
-    if (hr < 6 || hr >= 23) fired.add('hour')
+    }
+    const h = Number(hour)
+    if (h < 6 || h > 23) {
+      fired.add('hour')
+    }
 
-    setResult({ fired, score: scoreFor(fired) })
+    const score = scoreFor(fired)
+    setResult({ score, fired })
   }
-
   return (
     <div className="bg-white rounded-xl shadow-card border border-ink-100 p-5">
       <p className="text-sm font-semibold text-ink-900 mb-1">Score a test transaction</p>
