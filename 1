@@ -1,0 +1,53 @@
+[33m5fe27c8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Initial commit
+ .gitignore                                        |   20 [32m+[m
+ README.md                                         |    0
+ backend/main.py                                   |    0
+ backend/requirements.txt                          |    0
+ backend/routes/admin.py                           |    0
+ backend/routes/decisions.py                       |    0
+ backend/routes/transactions.py                    |    0
+ backend/routes/users.py                           |    0
+ backend/services/explanation_service.py           |    0
+ backend/services/model_service.py                 |    0
+ backend/services/supabase_client.py               |    0
+ dashboard/index.html                              |   16 [32m+[m
+ dashboard/package-lock.json                       | 3137 [32m++++++++++++++[m
+ dashboard/package.json                            |   25 [32m+[m
+ dashboard/postcss.config.js                       |    6 [32m+[m
+ dashboard/src/App.jsx                             |   13 [32m+[m
+ dashboard/src/components/AdminSettings.jsx        |   29 [32m+[m
+ dashboard/src/components/AdminThresholds.jsx      |  233 [32m+[m
+ dashboard/src/components/AuditTrail.jsx           |   50 [32m+[m
+ dashboard/src/components/CounterfactualSlider.jsx |  155 [32m+[m
+ dashboard/src/components/CreateTransaction.jsx    |  190 [32m+[m
+ dashboard/src/components/EvidenceCards.jsx        |   59 [32m+[m
+ dashboard/src/components/LiveFeed.jsx             |   54 [32m+[m
+ dashboard/src/components/MuleChainGraph.jsx       |   49 [32m+[m
+ dashboard/src/components/NavBar.jsx               |   49 [32m+[m
+ dashboard/src/components/RiskBadges.jsx           |  103 [32m+[m
+ dashboard/src/components/RiskHistogram.jsx        |  136 [32m+[m
+ dashboard/src/components/RiskPolicyPanel.jsx      |   80 [32m+[m
+ dashboard/src/components/SpendSparkline.jsx       |  109 [32m+[m
+ dashboard/src/components/StatsBar.jsx             |   76 [32m+[m
+ dashboard/src/components/TransactionDetail.jsx    |   97 [32m+[m
+ dashboard/src/components/UserHistory.jsx          |  127 [32m+[m
+ dashboard/src/index.css                           |    8 [32m+[m
+ dashboard/src/lib/ThresholdContext.jsx            |   81 [32m+[m
+ dashboard/src/lib/api.js                          |  138 [32m+[m
+ dashboard/src/lib/risk.js                         |  167 [32m+[m
+ dashboard/src/lib/settings.js                     |  127 [32m+[m
+ dashboard/src/lib/supabaseClient.js               |    6 [32m+[m
+ dashboard/src/main.jsx                            |   10 [32m+[m
+ dashboard/src/pages/Dashboard.jsx                 |  139 [32m+[m
+ dashboard/src/pages/Login.jsx                     |   83 [32m+[m
+ dashboard/tailwind.config.js                      |   37 [32m+[m
+ dashboard/vite.config.js                          |    9 [32m+[m
+ docs/architecture.md                              |    0
+ model/data/synthetic_data.json                    | 4726 [32m+++++++++++++++++++++[m
+ model/generate_synthetic_data.py                  |  223 [32m+[m
+ model/score_transaction.py                        |  205 [32m+[m
+ model/seed_supabase.py                            |  180 [32m+[m
+ model/train_model.py                              |   76 [32m+[m
+ model/verify_report.txt                           |   74 [32m+[m
+ model/verify_scoring.py                           |  190 [32m+[m
+ 51 files changed, 11292 insertions(+)
