@@ -74,12 +74,8 @@ python model/generate_synthetic_data.py
 python model/seed_supabase.py
 ```
 
-In an actual deployment, this layer would be replaced by the institution's own live
-transaction data, connected through secure internal APIs.
 
 ## Notes
 
-- This is a hackathon prototype — not connected to any real bank, UPI provider, or real
+- This is a hackathon prototype — not actually connected to any real bank, UPI provider, or real
   customer data.
-- Deployment was intentionally skipped in favor of a local demo; the app runs entirely
-  on `localhost`.
