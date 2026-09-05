@@ -13,7 +13,7 @@ Most fraud tools show an analyst a raw risk score with no context. FraudLens tur
 * Real-time-feeling transaction feed, scored by a trained ML model
 * Evidence for / against each flagged transaction
 * Counterfactual explanations (which factor tipped the risk score)
-* User transaction history, so an anomaly is visible in context
+* User transaction history, so an anomaly is visible in the context
 * Mule-chain / pass-through detection across linked accounts
 * Analyst decisions (Confirm Fraud / Mark Legitimate / Escalate) with a full audit trail
 * Admin panel: configurable flag threshold, risk policy, and a live scoring calculator
