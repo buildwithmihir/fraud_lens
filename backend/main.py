@@ -36,11 +36,13 @@ from services.supabase_client import (
 
 log = logging.getLogger("fraudlens")
 
-# Vite dev server. Both spellings are listed because a browser sends whichever
-# host the user typed, and CORS origins match as exact strings.
+# Frontend origins: Vite dev server (both spellings are listed because a
+# browser sends whichever host the user typed, and CORS origins match as exact
+# strings) plus the deployed Vercel frontend.
 ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "https://fraud-lens-phi.vercel.app",
 ]
 
 # PostgREST/Postgres error code -> HTTP status. Anything unlisted becomes a 502:
