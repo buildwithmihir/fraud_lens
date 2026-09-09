@@ -8,6 +8,7 @@ import RiskHistogram from '../components/RiskHistogram'
 import AdminSettings from '../components/AdminSettings'
 import { firedFromEvidence } from '../lib/risk'
 import { ThresholdProvider } from '../lib/ThresholdContext'
+import { API_BASE_URL } from '../lib/apiBase'
 
 /**
  * Transactions now come from the FastAPI backend (backend/main.py) rather than
@@ -21,7 +22,6 @@ import { ThresholdProvider } from '../lib/ThresholdContext'
  * components already expect; they mirror what dashboard/src/lib/api.js did when
  * it read Supabase directly.
  */
-const API_BASE = 'http://localhost:8000'
 
 const asArray = (v) => (Array.isArray(v) ? v : v == null ? [] : [v])
 
@@ -120,7 +120,7 @@ function toHistoryRow(t) {
 
 /** Everything the dashboard needs, from one GET /transactions. */
 async function fetchDashboardData(signal) {
-  const res = await fetch(`${API_BASE}/transactions`, { signal })
+  const res = await fetch(`${API_BASE_URL}/transactions`, { signal })
   if (!res.ok) {
     // FastAPI errors carry {detail}; fall back to the status line if not JSON.
     const detail = await res.json().catch(() => null)
@@ -227,7 +227,7 @@ function DashboardBody({ onLogout }) {
           <Notice tone="error">
             <span className="font-medium">Could not load data.</span> {error}
             <span className="block mt-1 text-ink-500">
-              The dashboard reads <code className="text-ink-700">{API_BASE}/transactions</code>.
+              The dashboard reads <code className="text-ink-700">{API_BASE_URL}/transactions</code>.
               Check that the backend is running (
               <code className="text-ink-700">uvicorn main:app --port 8000</code> from{' '}
               <code className="text-ink-700">backend/</code>) and that this origin is in its CORS

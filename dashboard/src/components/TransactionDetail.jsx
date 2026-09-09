@@ -4,8 +4,7 @@ import MuleChainGraph from './MuleChainGraph'
 import CounterfactualSlider from './CounterfactualSlider'
 import { BandChip, ScoreValue, StatusPill } from './RiskBadges'
 import { IconShieldX, IconCircleCheck, IconFlag3 } from '@tabler/icons-react'
-
-const API_BASE = 'http://localhost:8000'
+import { API_BASE_URL } from '../lib/apiBase'
 
 /**
  * There is no analyst identity to read: App.jsx tracks authentication as a
@@ -60,7 +59,7 @@ export default function TransactionDetail({ transaction, chain }) {
     setPending(label)
     setResult(null)
     try {
-      const res = await fetch(`${API_BASE}/decisions`, {
+      const res = await fetch(`${API_BASE_URL}/decisions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

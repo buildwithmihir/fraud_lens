@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { IconFileText } from '@tabler/icons-react'
-
-const API_BASE = 'http://localhost:8000'
+import { API_BASE_URL } from '../lib/apiBase'
 
 /** First six hex digits of a uuid, in the dashboard's TX- shorthand. */
 const shortId = (id) => (id ? `TX-${String(id).slice(0, 6).toUpperCase()}` : '—')
@@ -61,7 +60,7 @@ export default function AuditTrail() {
 
     ;(async () => {
       try {
-        const res = await fetch(`${API_BASE}/decisions`, { signal: controller.signal })
+        const res = await fetch(`${API_BASE_URL}/decisions`, { signal: controller.signal })
         if (!res.ok) {
           // FastAPI errors carry {detail}; fall back to the status line if not JSON.
           const detail = await res.json().catch(() => null)
